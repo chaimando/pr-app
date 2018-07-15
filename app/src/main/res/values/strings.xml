@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Calibradores</string>
+
+    <!-- Login -->
+    <string name="hint_username">Nombre de usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="login_button_text">Acceder</string>
+    <string name="login_bad_credentials_title">Credenciales de usuario incorrectas</string>
+    <string name="login_bad_credentials_message">Por favor revisa que tu nombre de usuario o contraseña sean correctos</string>
+    <string name="login_remember_me">Recordar Usuario</string>
+
+    <string name="menu_title_log_out">Log out</string>
+
+    <!-- Main -->
+    <string name="main_new_process">Nuevo Proceso</string>
+    <string name="main_scan_model">Buscar Pieza</string>
+    <string name="projects_label_id">ID:</string>
+    <string name="projects_label_name">Nombre:</string>
+    <string name="projects_label_start_date">Fecha de inicio:</string>
+    <string name="projects_label_dead_line">Fecha de término:</string>
+    <string name="projects_label_status">Estado:</string>
+
+</resources>
