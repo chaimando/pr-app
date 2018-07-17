@@ -4,17 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.prcalibradores.prapp.model.User;
+import com.loopj.android.http.PersistentCookieStore;
 import com.prcalibradores.prapp.model.UsersLab;
 import com.prcalibradores.prapp.networking.RestClient;
-import com.prcalibradores.prapp.networking.Utils;
 
 import java.util.List;
+import java.util.UUID;
 
 import androidx.appcompat.app.AppCompatActivity;
 import cz.msebera.android.httpclient.cookie.Cookie;
 
 public class SplashActivity extends AppCompatActivity {
+
+    private static final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +35,26 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
-    protected User validateSession() {
-        RestClient client = new RestClient(getApplicationContext());
-        List<Cookie> cookieList = client.getMyCookieStore().getCookies();
-        if (cookieList.size() != 0) {
-            User user = Utils.getUserFromCookies(cookieList);
-            return UsersLab.get(this).getUser(
-                    user.getIDDB(),
-                    user.getUsername(),
-                    user.getPassword()) != null ? user : null;
-        }
-        return null;
-    }
-
     protected boolean isSessionSaved() {
-        User user;
-        if ((user = validateSession()) != null) {
-            return user.isSaveSession();
+        RestClient client = new RestClient();
+        PersistentCookieStore cookieStore = new PersistentCookieStore(getApplicationContext());
+        client.getClient().setCookieStore(cookieStore);
+        List<Cookie> cookies = cookieStore.getCookies();
+
+        if (cookies.size() > 0) {
+            return UsersLab.get(this).getUser(
+                    UUID.fromString( cookies.get(0).getValue() )
+            ) != null;
         }
         return false;
     }
 
     protected void clearSession() {
+        RestClient client = new RestClient();
+        PersistentCookieStore cookieStore = new PersistentCookieStore(getApplicationContext());
+        client.getClient().setCookieStore(cookieStore);
+
+        cookieStore.clear();
         UsersLab.get(this).delete();
-        new RestClient(this).getMyCookieStore().clear();
     }
 }

@@ -5,45 +5,31 @@ import java.util.UUID;
 public class User {
     private UUID mUUID;
     private String mIDDB;
-    private String username;
-    private String password;
-    private boolean saveSession;
-
-    public void setSaveSession(boolean saveSession) {
-        this.saveSession = saveSession;
-    }
-
-    public boolean isSaveSession() {
-        return saveSession;
-
-    }
-
-    public User(){}
+    private String mUsername;
+    private String mPassword;
+    private String mProcessId;
 
     public User(UUID UUID, String IDDB, String username, String password) {
         mUUID = UUID;
         mIDDB = IDDB;
-        this.username = username;
-        this.password = password;
+        this.mUsername = username;
+        this.mPassword = password;
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        mUUID = UUID.randomUUID();
-    }
-
-    public User(String IDDB, String username, String password) {
+    public User(String IDDB, String username, String password, String processId) {
         mIDDB = IDDB;
-        this.username = username;
-        this.password = password;
+        this.mUsername = username;
+        this.mPassword = password;
+        mProcessId = processId;
         mUUID = UUID.randomUUID();
     }
 
-    public User(UUID UUID, String username, String password) {
+    public User(UUID UUID, String IDDB, String username, String password, String processId) {
         mUUID = UUID;
-        this.username = username;
-        this.password = password;
+        mIDDB = IDDB;
+        mUsername = username;
+        mPassword = password;
+        mProcessId = processId;
     }
 
     public UUID getUUID() {
@@ -51,11 +37,11 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return mUsername;
     }
 
     public String getPassword() {
-        return password;
+        return mPassword;
     }
 
     public String getIDDB() {
@@ -67,11 +53,11 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.mUsername = username;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.mPassword = password;
     }
 
     @Override
@@ -79,8 +65,21 @@ public class User {
         return "User{" +
                 "mUUID=" + mUUID +
                 ", mIDDB='" + mIDDB + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", mUsername='" + mUsername + '\'' +
+                ", mPassword='" + mPassword + '\'' +
+                ", mProcessId='" + mProcessId + '\'' +
                 '}';
+    }
+
+    public void setUUID(String id) {
+        mUUID = UUID.fromString(id);
+    }
+
+    public String getProcessId() {
+        return mProcessId;
+    }
+
+    public void setProcessId(String processId) {
+        mProcessId = processId;
     }
 }

@@ -11,7 +11,7 @@ import com.prcalibradores.prapp.database.UserCursorWrapper;
 
 import java.util.UUID;
 
-import static com.prcalibradores.prapp.database.DbSchema.*;
+import static com.prcalibradores.prapp.database.DbSchema.UserTable;
 
 public class UsersLab {
     private static UsersLab sUsersLab;
@@ -111,6 +111,7 @@ public class UsersLab {
         values.put(UserTable.Cols.ID_DB, user.getIDDB());
         values.put(UserTable.Cols.USERNAME, user.getUsername());
         values.put(UserTable.Cols.PASSWORD, user.getPassword());
+        values.put(UserTable.Cols.PROCESS_ID, user.getProcessId());
         return values;
     }
 

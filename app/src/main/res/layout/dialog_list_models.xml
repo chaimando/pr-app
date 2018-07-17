@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/projects_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/project_list_progress_layout"
+        android:id="@+id/models_progess_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible">
@@ -31,7 +24,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/projects_empty_list_layout"
+        android:id="@+id/models_empty_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible">
@@ -43,11 +36,18 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/projects_empty_list"
+            android:text="@string/models_empty_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/models_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

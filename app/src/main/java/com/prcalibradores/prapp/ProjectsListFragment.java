@@ -1,6 +1,5 @@
 package com.prcalibradores.prapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -17,12 +16,14 @@ import com.prcalibradores.prapp.networking.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ public class ProjectsListFragment extends Fragment {
     private RecyclerView mProjectsRecyclerView;
     private ProjectsAdapter mProjectsAdapter;
     private ConstraintLayout mProgressLayout;
+    private ConstraintLayout mEmptyListLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ProjectsListFragment extends Fragment {
         mProjectsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mProgressLayout = view.findViewById(R.id.project_list_progress_layout);
+        mEmptyListLayout = view.findViewById(R.id.projects_empty_list_layout);
 
         updateUI();
 
@@ -66,9 +69,10 @@ public class ProjectsListFragment extends Fragment {
     private void updateUI() {
         final ArrayList<Project> projects = new ArrayList<>();
 
-        RestClient client = new RestClient(getActivity());
+        RestClient client = new RestClient();
         mProgressLayout.setVisibility(View.VISIBLE);
         mProjectsRecyclerView.setVisibility(View.INVISIBLE);
+        mEmptyListLayout.setVisibility(View.INVISIBLE);
         client.getProjects(new RestClient.Callback() {
             @Override
             public void onSuccess(JSONArray result) throws JSONException {
@@ -76,13 +80,29 @@ public class ProjectsListFragment extends Fragment {
                     projects.add(
                             Utils.getProjectFromJson(result.getJSONObject(i))
                     );
-                    if (mProjectsAdapter == null) {
-                        mProjectsAdapter = new ProjectsAdapter(projects);
-                        mProjectsRecyclerView.setAdapter(mProjectsAdapter);
-                    } else {
-                        mProjectsAdapter.setProjects(projects);
-                        mProjectsAdapter.notifyDataSetChanged();
-                    }
+                }
+                if (mProjectsAdapter == null) {
+                    mProjectsAdapter = new ProjectsAdapter(projects);
+                    mProjectsRecyclerView.setAdapter(mProjectsAdapter);
+                } else {
+                    mProjectsAdapter.setProjects(projects);
+                    mProjectsAdapter.notifyDataSetChanged();
+                }
+                mProgressLayout.setVisibility(View.INVISIBLE);
+                mProjectsRecyclerView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onSuccess(JSONObject result) {
+                projects.add(
+                        Utils.getProjectFromJson(result)
+                );
+                if (mProjectsAdapter == null) {
+                    mProjectsAdapter = new ProjectsAdapter(projects);
+                    mProjectsRecyclerView.setAdapter(mProjectsAdapter);
+                } else {
+                    mProjectsAdapter.setProjects(projects);
+                    mProjectsAdapter.notifyDataSetChanged();
                 }
                 mProgressLayout.setVisibility(View.INVISIBLE);
                 mProjectsRecyclerView.setVisibility(View.VISIBLE);
@@ -91,6 +111,9 @@ public class ProjectsListFragment extends Fragment {
             @Override
             public void onFailure(String response) {
                 Log.e("ProjectsListFragments", response);
+                mProgressLayout.setVisibility(View.INVISIBLE);
+                mProjectsRecyclerView.setVisibility(View.INVISIBLE);
+                mEmptyListLayout.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -127,6 +150,7 @@ public class ProjectsListFragment extends Fragment {
     }
 
     private class ProjectsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private static final String DIALOG_MODEL = "dialog_model";
         private String DATE_PATTERN = "E MMM d, y";
 
         private TextView mIdTextView;
@@ -160,8 +184,12 @@ public class ProjectsListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), ModelActivity.class);
-            getActivity().startActivity(intent);
+            FragmentManager manager = getFragmentManager();
+            if (manager != null) {
+                ModelsListDialog dialog = ModelsListDialog.newInstance(mProject.getId());
+                dialog.show(manager, DIALOG_MODEL);
+            }
         }
     }
+
 }

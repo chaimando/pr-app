@@ -1,9 +1,8 @@
 package com.prcalibradores.prapp;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-public class LoginActivity extends SingleFragmentActivity implements NavigationHost {
+public class LoginActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
@@ -20,17 +19,4 @@ public class LoginActivity extends SingleFragmentActivity implements NavigationH
         return R.layout.activity_login;
     }
 
-    @Override
-    public void navigateTo(Fragment fragment, boolean addToBackstack) {
-        FragmentTransaction transaction =
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, fragment);
-
-        if (addToBackstack) {
-            transaction.addToBackStack(null);
-        }
-
-        transaction.commit();
-    }
 }

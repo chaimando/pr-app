@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.prcalibradores.prapp.networking.RestClient;
 
 import androidx.fragment.app.Fragment;
 

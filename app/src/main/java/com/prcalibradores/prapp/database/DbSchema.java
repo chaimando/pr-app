@@ -9,6 +9,7 @@ public class DbSchema {
             public static final String ID_DB = "id_db";
             public static final String USERNAME = "username";
             public static final String PASSWORD = "password";
+            public static final String PROCESS_ID = "process_id";
         }
     }
 }

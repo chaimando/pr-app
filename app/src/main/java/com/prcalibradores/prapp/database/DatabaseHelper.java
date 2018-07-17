@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.prcalibradores.prapp.database.DbSchema.*;
+import static com.prcalibradores.prapp.database.DbSchema.UserTable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
@@ -20,7 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 UserTable.Cols.ID + ", " +
                 UserTable.Cols.ID_DB + ", " +
                 UserTable.Cols.USERNAME + ", " +
-                UserTable.Cols.PASSWORD + ")"
+                UserTable.Cols.PASSWORD + ", " +
+                UserTable.Cols.PROCESS_ID + ")"
         );
     }
 
