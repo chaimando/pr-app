@@ -24,5 +24,8 @@
 
     <!-- Models -->
     <string name="models_empty_list">No hay modelos registrados para este proyecto</string>
+    <string name="models_label_id_id">ID:</string>
+    <string name="models_label_id_name">Nombre:</string>
+    <string name="models_label_id_description">Descripción:</string>
 
 </resources>

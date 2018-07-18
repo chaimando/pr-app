@@ -1,7 +1,10 @@
 package com.prcalibradores.prapp;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.PersistentCookieStore;
 import com.prcalibradores.prapp.model.Model;
+import com.prcalibradores.prapp.model.User;
+import com.prcalibradores.prapp.model.UsersLab;
 import com.prcalibradores.prapp.networking.RestClient;
 import com.prcalibradores.prapp.networking.Utils;
 
@@ -19,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
@@ -29,6 +36,7 @@ public class ModelsListDialog extends DialogFragment {
 
     private static final String ARG_PROJECT_ID = "arg_project_id";
     private static final String TAG = "ModelsListDialog";
+    static final String EXTRA_MODEL_ID = "com.prcalibradores.prapp.EXTRA_MODEL_ID";
 
     private String mProjectId;
     private ConstraintLayout mProgressLayout;
@@ -36,7 +44,7 @@ public class ModelsListDialog extends DialogFragment {
     private ModelsAdapter mModelsAdapter;
     private ConstraintLayout mEmptyListLayout;
 
-    public static ModelsListDialog newInstance(String id) {
+    static ModelsListDialog newInstance(String id) {
 
         Bundle args = new Bundle();
         args.putString(ARG_PROJECT_ID, id);
@@ -53,6 +61,7 @@ public class ModelsListDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        @SuppressLint("InflateParams")
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_list_models, null);
 
         mProgressLayout = view.findViewById(R.id.models_progess_layout);
@@ -75,7 +84,11 @@ public class ModelsListDialog extends DialogFragment {
         mProgressLayout.setVisibility(View.VISIBLE);
         mEmptyListLayout.setVisibility(View.INVISIBLE);
         mRecyclerView.setVisibility(View.INVISIBLE);
-        client.getModels(mProjectId, "10260850", new RestClient.Callback() {
+        PersistentCookieStore cookieStore = new PersistentCookieStore(getActivity());
+        client.getClient().setCookieStore(cookieStore);
+        String userId = cookieStore.getCookies().get(0).getValue();
+        User user = UsersLab.get(getActivity()).getUser(UUID.fromString(userId));
+        client.getModels(mProjectId, user.getIDDB(), new RestClient.Callback() {
             @Override
             public void onSuccess(JSONArray result) throws JSONException {
                 for (int i = 0; i < result.length(); i++) {
@@ -148,7 +161,9 @@ public class ModelsListDialog extends DialogFragment {
         }
     }
 
-    private class ModelsHolder extends RecyclerView.ViewHolder {
+    private class ModelsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private Model mModel;
+
         private TextView mIdTextView;
         private TextView mNameTextView;
         private TextView mDescriptionTextView;
@@ -159,12 +174,33 @@ public class ModelsListDialog extends DialogFragment {
             mIdTextView = itemView.findViewById(R.id.model_list_item_id);
             mNameTextView = itemView.findViewById(R.id.model_list_item_name);
             mDescriptionTextView = itemView.findViewById(R.id.model_list_item_description);
+            itemView.setOnClickListener(this);
         }
 
         void bind(Model model) {
+            mModel = model;
             mIdTextView.setText(model.getId());
             mNameTextView.setText(model.getName());
             mDescriptionTextView.setText(model.getDescription());
         }
+
+        @Override
+        public void onClick(View view) {
+            sendResult(mModel.getId());
+        }
+
+        void sendResult(String modelId) {
+            Intent intent = new Intent();
+            intent.putExtra(EXTRA_MODEL_ID, modelId);
+
+            if (getTargetFragment() == null) {
+                getActivity().setResult(Activity.RESULT_OK, intent);
+                getActivity().finish();
+            } else {
+                dismiss();
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+            }
+        }
     }
+
 }

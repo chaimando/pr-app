@@ -1,5 +1,7 @@
 package com.prcalibradores.prapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -29,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ProjectsListFragment extends Fragment {
 
+    private static final int REQUEST_MODEL = 100;
     private RecyclerView mProjectsRecyclerView;
     private ProjectsAdapter mProjectsAdapter;
     private ConstraintLayout mProgressLayout;
@@ -144,7 +147,7 @@ public class ProjectsListFragment extends Fragment {
             return mProjects.size();
         }
 
-        public void setProjects(List<Project> projects) {
+        void setProjects(List<Project> projects) {
             mProjects = projects;
         }
     }
@@ -187,9 +190,25 @@ public class ProjectsListFragment extends Fragment {
             FragmentManager manager = getFragmentManager();
             if (manager != null) {
                 ModelsListDialog dialog = ModelsListDialog.newInstance(mProject.getId());
+                dialog.setTargetFragment(ProjectsListFragment.this, REQUEST_MODEL);
                 dialog.show(manager, DIALOG_MODEL);
             }
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_MODEL) {
+            String modelId = data.getStringExtra(ModelsListDialog.EXTRA_MODEL_ID);
+            FragmentManager fragmentManager = getFragmentManager();
+            if (fragmentManager != null) {
+                Intent intent = ProcessActivity.getIntent(modelId, getActivity());
+                getActivity().startActivity(intent);
+            }
+        }
+    }
 }
