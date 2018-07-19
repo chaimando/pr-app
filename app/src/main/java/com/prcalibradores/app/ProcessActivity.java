@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import android.content.Context;
 import android.content.Intent;

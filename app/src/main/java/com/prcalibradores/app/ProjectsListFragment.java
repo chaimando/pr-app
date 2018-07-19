@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.prcalibradores.prapp.model.Project;
-import com.prcalibradores.prapp.networking.RestClient;
-import com.prcalibradores.prapp.networking.Utils;
+import com.prcalibradores.app.model.Project;
+import com.prcalibradores.app.networking.RestClient;
+import com.prcalibradores.app.networking.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

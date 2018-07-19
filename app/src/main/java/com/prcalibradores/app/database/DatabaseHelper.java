@@ -1,10 +1,10 @@
-package com.prcalibradores.prapp.database;
+package com.prcalibradores.app.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.prcalibradores.prapp.database.DbSchema.UserTable;
+import static com.prcalibradores.app.database.DbSchema.UserTable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;

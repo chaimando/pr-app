@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp.model;
+package com.prcalibradores.app.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

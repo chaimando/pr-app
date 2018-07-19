@@ -1,8 +1,8 @@
-package com.prcalibradores.prapp;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.prcalibradores.app;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ModelActivity extends AppCompatActivity {
 

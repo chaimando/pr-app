@@ -1,12 +1,12 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.loopj.android.http.PersistentCookieStore;
-import com.prcalibradores.prapp.model.UsersLab;
-import com.prcalibradores.prapp.networking.RestClient;
+import com.prcalibradores.app.model.UsersLab;
+import com.prcalibradores.app.networking.RestClient;
 
 import java.util.List;
 import java.util.UUID;

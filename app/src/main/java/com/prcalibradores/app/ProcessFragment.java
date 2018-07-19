@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import android.content.Context;
 import android.os.Build;
@@ -20,8 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import library.minimize.com.chronometerpersist.ChronometerPersist;
 
-import static com.prcalibradores.prapp.R.drawable.ic_pause;
-import static com.prcalibradores.prapp.R.drawable.ic_play;
+import static com.prcalibradores.app.R.drawable.ic_pause;
+import static com.prcalibradores.app.R.drawable.ic_play;
 
 public class ProcessFragment extends Fragment {
     private static final String TAG = "ProcessFragmentLog";

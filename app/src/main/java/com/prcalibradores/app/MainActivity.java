@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import androidx.fragment.app.Fragment;
 

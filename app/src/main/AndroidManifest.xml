@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.prcalibradores.prapp">
+    package="com.prcalibradores.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.prcalibradores.app.SplashActivity"
             android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,20 +20,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.prcalibradores.app.LoginActivity"></activity>
+        <activity android:name="com.prcalibradores.app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProjectsListActivity" />
-        <activity android:name=".ModelActivity" />
+        <activity android:name="com.prcalibradores.app.ProjectsListActivity" />
+        <activity android:name="com.prcalibradores.app.ModelActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ProcessActivity"></activity>
+        <activity android:name="com.prcalibradores.app.ProcessActivity"></activity>
     </application>
 
 </manifest>

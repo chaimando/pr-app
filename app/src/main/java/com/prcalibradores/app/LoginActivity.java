@@ -1,22 +1,22 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import androidx.fragment.app.Fragment;
 
-public class ProjectsListActivity extends SingleFragmentActivity {
+public class LoginActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return new ProjectsListFragment();
+        return new LoginFragment();
     }
 
     @Override
     protected int getFragmentContainerId() {
-        return R.id.projects_container;
+        return R.id.login_container;
     }
 
     @Override
     protected int getActivityLayoutId() {
-        return R.layout.activity_projects_list;
+        return R.layout.activity_login;
     }
 
 }

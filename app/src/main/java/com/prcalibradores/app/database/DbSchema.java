@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp.database;
+package com.prcalibradores.app.database;
 
 public class DbSchema {
     public static final class UserTable {

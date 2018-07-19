@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp.model;
+package com.prcalibradores.app.model;
 
 public class Model {
     private String mId;

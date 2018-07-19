@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp.model;
+package com.prcalibradores.app.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,12 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.prcalibradores.prapp.database.DatabaseHelper;
-import com.prcalibradores.prapp.database.UserCursorWrapper;
+import com.prcalibradores.app.database.DatabaseHelper;
+import com.prcalibradores.app.database.UserCursorWrapper;
 
 import java.util.UUID;
 
-import static com.prcalibradores.prapp.database.DbSchema.UserTable;
+import static com.prcalibradores.app.database.DbSchema.UserTable;
 
 public class UsersLab {
     private static UsersLab sUsersLab;

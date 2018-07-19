@@ -1,13 +1,13 @@
-package com.prcalibradores.prapp.database;
+package com.prcalibradores.app.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.prcalibradores.prapp.model.User;
+import com.prcalibradores.app.model.User;
 
 import java.util.UUID;
 
-import static com.prcalibradores.prapp.database.DbSchema.UserTable;
+import static com.prcalibradores.app.database.DbSchema.UserTable;
 
 public class UserCursorWrapper extends CursorWrapper {
     public UserCursorWrapper(Cursor cursor) {

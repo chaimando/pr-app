@@ -1,4 +1,4 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.loopj.android.http.PersistentCookieStore;
-import com.prcalibradores.prapp.model.User;
-import com.prcalibradores.prapp.model.UsersLab;
-import com.prcalibradores.prapp.networking.RestClient;
-import com.prcalibradores.prapp.networking.Utils;
+import com.prcalibradores.app.model.User;
+import com.prcalibradores.app.model.UsersLab;
+import com.prcalibradores.app.networking.RestClient;
+import com.prcalibradores.app.networking.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

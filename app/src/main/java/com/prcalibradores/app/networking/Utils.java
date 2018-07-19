@@ -1,10 +1,10 @@
-package com.prcalibradores.prapp.networking;
+package com.prcalibradores.app.networking;
 
 import android.util.Log;
 
-import com.prcalibradores.prapp.model.Model;
-import com.prcalibradores.prapp.model.Project;
-import com.prcalibradores.prapp.model.User;
+import com.prcalibradores.app.model.Model;
+import com.prcalibradores.app.model.Project;
+import com.prcalibradores.app.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

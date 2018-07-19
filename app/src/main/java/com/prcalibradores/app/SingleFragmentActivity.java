@@ -1,8 +1,8 @@
-package com.prcalibradores.prapp;
+package com.prcalibradores.app;
 
 import android.os.Bundle;
 
-import com.prcalibradores.prapp.model.UsersLab;
+import com.prcalibradores.app.model.UsersLab;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
