@@ -27,5 +27,6 @@
     <string name="models_label_id_id">ID:</string>
     <string name="models_label_id_name">Nombre:</string>
     <string name="models_label_id_description">Descripción:</string>
+    <string name="models_dialog_title">Elige una pieza</string>
 
 </resources>

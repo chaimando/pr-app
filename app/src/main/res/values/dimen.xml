@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="floating_action_button_main">100dp</dimen>
+    <dimen name="floating_action_button_process">70dp</dimen>
+    <dimen name="floating_action_image_process">50dp</dimen>
 </resources>
