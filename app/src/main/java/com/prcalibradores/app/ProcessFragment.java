@@ -71,25 +71,23 @@ public class ProcessFragment extends Fragment {
 
         mChronometer = ChronometerPersist.Companion.getInstance(
                 (Chronometer) view.findViewById(R.id.process_chronometer),
-                getActivity().getPreferences(Context.MODE_PRIVATE)
+                Objects.requireNonNull(getActivity()).getPreferences(Context.MODE_PRIVATE)
         );
 
         mStopButton.setEnabled(mIsRunning);
+        mDeathButton.setEnabled(mIsRunning);
 
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mChronometer.isRunning()) {
-                    setPlayButtonImage(ic_play);
-                    mChronometer.pauseChronometer();
-                    getElapsedTime();
+                    pauseChronometer();
                 }
                 else {
-                    mChronometer.setMTimeBase(SystemClock.elapsedRealtime());
-                    setPlayButtonImage(ic_pause);
-                    mChronometer.startChronometer();
+                    startChronometer();
                 }
                 mStopButton.setEnabled(true);
+                mDeathButton.setEnabled(true);
             }
         });
 
@@ -99,22 +97,24 @@ public class ProcessFragment extends Fragment {
                 mPlayButton.setEnabled(false);
                 mDeathButton.setEnabled(false);
                 mStopButton.setEnabled(false);
-                setPlayButtonImage(ic_play);
 
-                mChronometer.pauseChronometer();
-                getElapsedTime();
+                if (mChronometer.isRunning()) {
+                    pauseChronometer();
+                }
+
                 mChronometer.stopChronometer();
 
                 Log.i(TAG, "onClick: Final time: " + mElapsedTime);
-                Toast.makeText(getActivity(), "Tiempo final: ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Tiempo final: " + mElapsedTime, Toast.LENGTH_SHORT).show();
             }
         });
 
         mDeathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mChronometer.pauseChronometer();
-                getElapsedTime();
+                if (mChronometer.isRunning()) {
+                    pauseChronometer();
+                }
                 mDeathCounter ++;
                 Log.d(TAG, "onClick: Number of deaths" + mDeathCounter);
                 Toast.makeText(getActivity(), "Número de muertes: " + mDeathCounter, Toast.LENGTH_SHORT).show();
@@ -152,5 +152,17 @@ public class ProcessFragment extends Fragment {
     private void getElapsedTime() {
         mElapsedTime += SystemClock.elapsedRealtime() - mChronometer.getMTimeBase();
         Toast.makeText(getContext(), "Partial time: " + mElapsedTime, Toast.LENGTH_SHORT).show();
+    }
+
+    private void pauseChronometer() {
+        setPlayButtonImage(ic_play);
+        mChronometer.pauseChronometer();
+        getElapsedTime();
+    }
+
+    private void startChronometer() {
+        //mChronometer.setMTimeBase(SystemClock.elapsedRealtime());
+        setPlayButtonImage(ic_pause);
+        mChronometer.startChronometer();
     }
 }
