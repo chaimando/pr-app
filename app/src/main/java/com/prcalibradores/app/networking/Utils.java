@@ -1,7 +1,9 @@
 package com.prcalibradores.app.networking;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.loopj.android.http.PersistentCookieStore;
 import com.prcalibradores.app.model.Model;
 import com.prcalibradores.app.model.Project;
 import com.prcalibradores.app.model.User;
@@ -9,17 +11,23 @@ import com.prcalibradores.app.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
+
 public class Utils {
+
+    public static final String TAG = "Utils";
+
     public static User getUserFromJson(JSONObject jsonObject) {
         try {
             String id = jsonObject.getString("login_id");
             String username = jsonObject.getString("login_username");
             String password = jsonObject.getString("login_password");
             String processId = jsonObject.getString("process_id");
-            return new User(id, username, password, processId);
+            String processName = jsonObject.getString("process_name");
+            return new User(id, username, password, processId, processName);
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("Utils", "JSON parsing error");
+            Log.e(TAG, "JSON parsing error");
         }
         return null;
     }
@@ -34,7 +42,7 @@ public class Utils {
             return new Project(id, name, startDate, deadLine, status);
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("Utils", "JSON parsing error");
+            Log.e(TAG, "JSON parsing error");
         }
         return null;
     }
@@ -47,8 +55,35 @@ public class Utils {
             return new Model(id, name, description);
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("Utils", "JSON parsing error");
+            Log.e(TAG, "JSON parsing error");
         }
         return null;
+    }
+
+    public static PersistentCookieStore getCookieStore(Context context) {
+        PersistentCookieStore cookieStore = new PersistentCookieStore(context);
+        RestClient client = new RestClient();
+        client.getClient().setCookieStore(cookieStore);
+        return cookieStore;
+    }
+
+    public static BasicClientCookie getNewCookie(String name, String value) {
+        BasicClientCookie newCookie = new BasicClientCookie(name, value);
+        newCookie.setVersion(1);
+        newCookie.setDomain("prcalibradores.com");
+        newCookie.setPath("/app/");
+        return newCookie;
+    }
+
+    public static JSONObject getProcessJSON(User user, long time) {
+        JSONObject process = new JSONObject();
+        try {
+            process.put("process_id", user.getProcessId());
+            process.put("staff_id", user.getIDDB());
+            process.put("time", time);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return process;
     }
 }

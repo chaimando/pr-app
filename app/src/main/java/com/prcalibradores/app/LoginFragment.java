@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -75,7 +77,7 @@ public class LoginFragment extends Fragment {
                     saveSession(resultObject);
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
-                    getActivity().startActivity(intent);
+                    Objects.requireNonNull(getActivity()).startActivity(intent);
                     getActivity().finish();
                 }
 
@@ -86,7 +88,7 @@ public class LoginFragment extends Fragment {
                     saveSession(result);
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
-                    getActivity().startActivity(intent);
+                    Objects.requireNonNull(getActivity()).startActivity(intent);
                     getActivity().finish();
                 }
 
@@ -94,7 +96,9 @@ public class LoginFragment extends Fragment {
                 public void onFailure(String response) {
                     progressLayout.setVisibility(View.INVISIBLE);
                     DialogBadCredentials dialog = new DialogBadCredentials();
-                    dialog.show(getFragmentManager(), DIALOG_BAD_CREDENTIALS);
+                    if (getFragmentManager() != null) {
+                        dialog.show(getFragmentManager(), DIALOG_BAD_CREDENTIALS);
+                    }
                 }
             });
             }
@@ -107,25 +111,19 @@ public class LoginFragment extends Fragment {
         User user = Utils.getUserFromJson(result);
         if (user != null) {
             UsersLab.get(getActivity()).saveUser(user);
-            PersistentCookieStore cookieStore =
-                    new PersistentCookieStore(getActivity().getApplicationContext());
-            RestClient client = new RestClient();
-            client.getClient().setCookieStore(cookieStore);
-            BasicClientCookie newCookie = new BasicClientCookie("local_id",
-                    user.getUUID().toString());
-            newCookie.setVersion(1);
-            newCookie.setDomain("prcalibradores.com");
-            newCookie.setPath("/app/");
-            cookieStore.addCookie(newCookie);
+            PersistentCookieStore cookieStore = Utils.getCookieStore(getActivity());
+            BasicClientCookie clientCookie = Utils.getNewCookie("local_id", user.getUUID().toString());
+            cookieStore.addCookie(clientCookie);
             Log.d(TAG, "saveSession: User data saved: " + user.toString());
             Log.d(TAG, "saveSession: Cookie saved: " + cookieStore.getCookies().get(0));
         }
     }
 
     public static class DialogBadCredentials extends DialogFragment {
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new AlertDialog.Builder(getActivity())
+            return new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                     .setTitle(R.string.login_bad_credentials_title)
                     .setMessage(R.string.login_bad_credentials_message)
                     .setCancelable(true)

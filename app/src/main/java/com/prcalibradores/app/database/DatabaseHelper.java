@@ -21,7 +21,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 UserTable.Cols.ID_DB + ", " +
                 UserTable.Cols.USERNAME + ", " +
                 UserTable.Cols.PASSWORD + ", " +
-                UserTable.Cols.PROCESS_ID + ")"
+                UserTable.Cols.PROCESS_ID + ", " +
+                UserTable.Cols.PROCESS_NAME + ")"
         );
     }
 

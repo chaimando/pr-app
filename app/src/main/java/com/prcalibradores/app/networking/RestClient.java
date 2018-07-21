@@ -22,11 +22,9 @@ public class RestClient {
     }
 
     private AsyncHttpClient mClient;
-    private RequestParams mParams;
 
     public RestClient() {
         mClient = new AsyncHttpClient();
-        mParams = new RequestParams();
     }
 
     private void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
@@ -42,14 +40,15 @@ public class RestClient {
     }
 
     public void validateUserCredentials(String username, String password, final Callback callback) {
-        mParams.put("username", username);
-        mParams.put("password", password);
-        post("login.php", mParams, new JsonHttpResponseHandler() {
+        RequestParams params = new RequestParams();
+        params.put("username", username);
+        params.put("password", password);
+        post("login.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d("RestClient", ":onSuccess:JSONArray:" + response.toString());
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
                 try {
                     callback.onSuccess(response);
                 } catch (JSONException e) {
@@ -67,14 +66,15 @@ public class RestClient {
     }
 
     public void existUser(String id, String password, final Callback callback) {
-        mParams.put("login_id", id);
-        mParams.put("login_password", password);
-        post("exist.php", mParams, new JsonHttpResponseHandler() {
+        RequestParams params = new RequestParams();
+        params.put("login_id", id);
+        params.put("login_password", password);
+        post("exist.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d("RestClient", ":onSuccess:JSONArray:" + response.toString());
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
                 try {
                     callback.onSuccess(response);
                 } catch (JSONException e) {
@@ -85,19 +85,19 @@ public class RestClient {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                Log.d("RestClient", ":onFailure:" + responseString);
+                Log.d(TAG, ":onFailure:" + responseString);
                 callback.onFailure(responseString);
             }
         });
     }
 
     public void getProjects(final Callback callback) {
-        post("get-projects.php", mParams, new JsonHttpResponseHandler() {
+        post("get-projects.php", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d("RestClient", ":onSuccess:JSONArray:" + response.toString());
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
                 try {
                     callback.onSuccess(response);
                 } catch (JSONException e) {
@@ -114,14 +114,15 @@ public class RestClient {
     }
 
     public void getModels(String projectId, String userId, final Callback callback) {
-        mParams.put("project_id", projectId);
-        mParams.put("user_id", userId);
-        get("get-models.php", mParams, new JsonHttpResponseHandler() {
+        RequestParams params = new RequestParams();
+        params.put("project_id", projectId);
+        params.put("user_id", userId);
+        get("get-models.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d("RestClient", ":onSuccess:JSONArray:" + response.toString());
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
                 try {
                     callback.onSuccess(response);
                 } catch (JSONException e) {
@@ -132,7 +133,80 @@ public class RestClient {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                Log.d("RestClient", ":onSuccess:JSONArray:" + response.toString());
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
+                try {
+                    callback.onSuccess(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                callback.onFailure(responseString);
+            }
+        });
+    }
+
+    public void setNewPiece(String modelId, String processId, final Callback callback) {
+        RequestParams params = new RequestParams();
+        params.put("model_id", modelId);
+        params.put("process_id", processId);
+        post("set-piece.php", params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
+                try {
+                    callback.onSuccess(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
+                try {
+                    callback.onSuccess(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                callback.onFailure(responseString);
+            }
+        });
+    }
+
+    public void setTime(String id, JSONObject json, int deaths, final Callback callback) {
+        RequestParams params = new RequestParams();
+        params.put("id", id);
+        params.put("json", json.toString());
+        params.put("muertes", deaths);
+        post("set-time.php", params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
+                try {
+                    callback.onSuccess(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
                 try {
                     callback.onSuccess(response);
                 } catch (JSONException e) {

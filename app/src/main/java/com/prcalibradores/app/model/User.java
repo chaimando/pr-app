@@ -8,6 +8,7 @@ public class User {
     private String mUsername;
     private String mPassword;
     private String mProcessId;
+    private String mProcessName;
 
     public User(UUID UUID, String IDDB, String username, String password) {
         mUUID = UUID;
@@ -16,12 +17,13 @@ public class User {
         this.mPassword = password;
     }
 
-    public User(String IDDB, String username, String password, String processId) {
+    public User(String IDDB, String username, String password, String processId, String processName) {
         mIDDB = IDDB;
         this.mUsername = username;
         this.mPassword = password;
         mProcessId = processId;
         mUUID = UUID.randomUUID();
+        mProcessName = processName;
     }
 
     public User(UUID UUID, String IDDB, String username, String password, String processId) {
@@ -30,6 +32,15 @@ public class User {
         mUsername = username;
         mPassword = password;
         mProcessId = processId;
+    }
+
+    public User(UUID UUID, String IDDB, String username, String password, String processId, String processName) {
+        mUUID = UUID;
+        mIDDB = IDDB;
+        mUsername = username;
+        mPassword = password;
+        mProcessId = processId;
+        mProcessName = processName;
     }
 
     public UUID getUUID() {
@@ -81,5 +92,13 @@ public class User {
 
     public void setProcessId(String processId) {
         mProcessId = processId;
+    }
+
+    public String getProcessName() {
+        return mProcessName;
+    }
+
+    public void setProcessName(String processName) {
+        mProcessName = processName;
     }
 }

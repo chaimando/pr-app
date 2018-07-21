@@ -22,7 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -44,7 +46,7 @@ public class ProjectsListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_projects, container, false);
 
         mProjectsRecyclerView = view.findViewById(R.id.projects_recycler_view);
@@ -129,15 +131,16 @@ public class ProjectsListFragment extends Fragment {
             mProjects = projects;
         }
 
+        @NonNull
         @Override
-        public ProjectsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ProjectsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
             return new ProjectsHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(ProjectsHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ProjectsHolder holder, int position) {
             Project project = mProjects.get(position);
             holder.bind(project);
         }
@@ -207,7 +210,8 @@ public class ProjectsListFragment extends Fragment {
             FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager != null) {
                 Intent intent = ProcessActivity.getIntent(modelId, getActivity());
-                getActivity().startActivity(intent);
+                Objects.requireNonNull(getActivity()).startActivity(intent);
+                getActivity().finish();
             }
         }
     }

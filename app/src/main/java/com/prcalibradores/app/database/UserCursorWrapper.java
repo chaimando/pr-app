@@ -20,6 +20,7 @@ public class UserCursorWrapper extends CursorWrapper {
         String user = getString(getColumnIndex(UserTable.Cols.USERNAME));
         String pass = getString(getColumnIndex(UserTable.Cols.PASSWORD));
         String process_id = getString(getColumnIndex(UserTable.Cols.PROCESS_ID));
-        return new User(id, id_db, user, pass, process_id);
+        String process_name = getString(getColumnIndex(UserTable.Cols.PROCESS_NAME));
+        return new User(id, id_db, user, pass, process_id, process_name);
     }
 }
