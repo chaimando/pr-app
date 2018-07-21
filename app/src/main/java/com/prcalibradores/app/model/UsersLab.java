@@ -112,6 +112,7 @@ public class UsersLab {
         values.put(UserTable.Cols.USERNAME, user.getUsername());
         values.put(UserTable.Cols.PASSWORD, user.getPassword());
         values.put(UserTable.Cols.PROCESS_ID, user.getProcessId());
+        values.put(UserTable.Cols.PROCESS_NAME, user.getProcessName());
         return values;
     }
 
