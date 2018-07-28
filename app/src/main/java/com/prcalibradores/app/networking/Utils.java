@@ -52,7 +52,9 @@ public class Utils {
             String id = jsonObject.getString("model_id");
             String name = jsonObject.getString("model_name");
             String description = jsonObject.getString("model_description");
-            return new Model(id, name, description);
+            String pieces = jsonObject.getString("model_pieces");
+            String finishedPieces = jsonObject.getString("model_finished_pieces");
+            return new Model(id, name, description, pieces, finishedPieces);
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG, "JSON parsing error");
@@ -71,7 +73,7 @@ public class Utils {
         BasicClientCookie newCookie = new BasicClientCookie(name, value);
         newCookie.setVersion(1);
         newCookie.setDomain("prcalibradores.com");
-        newCookie.setPath("/app/");
+        newCookie.setPath("/api/");
         return newCookie;
     }
 

@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProjectsListFragment extends Fragment {
 
     private static final int REQUEST_MODEL = 100;
+    private static final String TAG = "ProjectsListFragment";
     private RecyclerView mProjectsRecyclerView;
     private ProjectsAdapter mProjectsAdapter;
     private ConstraintLayout mProgressLayout;

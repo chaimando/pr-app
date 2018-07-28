@@ -4,11 +4,15 @@ public class Model {
     private String mId;
     private String mName;
     private String mDescription;
+    private String mPieces;
+    private String mFinishedPieces;
 
-    public Model(String id, String name, String description) {
+    public Model(String id, String name, String description, String pieces, String finishedPieces) {
         mId = id;
         mName = name;
         mDescription = description;
+        mPieces = pieces;
+        mFinishedPieces = finishedPieces;
     }
 
     public String getId() {
@@ -42,5 +46,21 @@ public class Model {
                 ", mName='" + mName + '\'' +
                 ", mDescription='" + mDescription + '\'' +
                 '}';
+    }
+
+    public String getFinishedPieces() {
+        return mFinishedPieces;
+    }
+
+    public void setFinishedPieces(String finishedPieces) {
+        mFinishedPieces = finishedPieces;
+    }
+
+    public String getPieces() {
+        return mPieces;
+    }
+
+    public void setPieces(String pieces) {
+        mPieces = pieces;
     }
 }

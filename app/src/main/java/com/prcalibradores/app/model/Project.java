@@ -103,4 +103,16 @@ public class Project {
     public void setStatus(String status) {
         this.mStatus = status;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "DATE_PATTERN='" + DATE_PATTERN + '\'' +
+                ", mId='" + mId + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mStartdate=" + mStartdate +
+                ", mDeadline=" + mDeadline +
+                ", mStatus='" + mStatus + '\'' +
+                '}';
+    }
 }

@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class RestClient {
-    private static final String BASE_URL = "http://www.prcalibradores.com/app/";
+    private static final String BASE_URL = "http://www.prcalibradores.com/api/";
     private static final String TAG = "RestClient";
 
     public AsyncHttpClient getClient() {
@@ -92,10 +92,21 @@ public class RestClient {
     }
 
     public void getProjects(final Callback callback) {
-        post("get-projects.php", new RequestParams(), new JsonHttpResponseHandler() {
+        get("projects.php", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
+                try {
+                    callback.onSuccess(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Log.d(TAG, ":onSuccess:JSONArray:" + response.toString());
                 try {
@@ -113,11 +124,11 @@ public class RestClient {
         });
     }
 
-    public void getModels(String projectId, String userId, final Callback callback) {
+    public void getModels(String projectId, String processId, final Callback callback) {
         RequestParams params = new RequestParams();
         params.put("project_id", projectId);
-        params.put("user_id", userId);
-        get("get-models.php", params, new JsonHttpResponseHandler() {
+        params.put("process_id", processId);
+        get("models.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -153,7 +164,7 @@ public class RestClient {
         RequestParams params = new RequestParams();
         params.put("model_id", modelId);
         params.put("process_id", processId);
-        post("set-piece.php", params, new JsonHttpResponseHandler() {
+        get("pieces.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -187,10 +198,10 @@ public class RestClient {
 
     public void setTime(String id, JSONObject json, int deaths, final Callback callback) {
         RequestParams params = new RequestParams();
-        params.put("id", id);
+        params.put("piece_id", id);
         params.put("json", json.toString());
-        params.put("muertes", deaths);
-        post("set-time.php", params, new JsonHttpResponseHandler() {
+        params.put("piece_fails", deaths);
+        get("time.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {

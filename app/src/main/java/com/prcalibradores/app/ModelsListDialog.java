@@ -26,8 +26,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,9 +59,12 @@ public class ModelsListDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProjectId = getArguments().getString(ARG_PROJECT_ID);
+        if (getArguments() != null) {
+            mProjectId = getArguments().getString(ARG_PROJECT_ID);
+        }
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         @SuppressLint("InflateParams")
@@ -74,7 +79,6 @@ public class ModelsListDialog extends DialogFragment {
         updateUI();
 
         return new AlertDialog.Builder(getActivity())
-                .setView(view)
                 .setTitle(R.string.models_dialog_title)
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -82,6 +86,7 @@ public class ModelsListDialog extends DialogFragment {
                         dismiss();
                     }
                 })
+                .setView(view)
                 .create();
     }
 
@@ -96,14 +101,13 @@ public class ModelsListDialog extends DialogFragment {
         client.getClient().setCookieStore(cookieStore);
         String userId = cookieStore.getCookies().get(0).getValue();
         User user = UsersLab.get(getActivity()).getUser(UUID.fromString(userId));
-        client.getModels(mProjectId, user.getIDDB(), new RestClient.Callback() {
+        client.getModels(mProjectId, user.getProcessId(), new RestClient.Callback() {
             @Override
             public void onSuccess(JSONArray result) throws JSONException {
                 for (int i = 0; i < result.length(); i++) {
                     models.add(
                             Utils.getModelFromJson(result.getJSONObject(i))
                     );
-                    Log.d(TAG, "onSuccess: " + models.get(i).toString());
                 }
                 if (mModelsAdapter == null) {
                     mModelsAdapter = new ModelsAdapter(models);
@@ -147,15 +151,16 @@ public class ModelsListDialog extends DialogFragment {
             mModels = models;
         }
 
+        @NonNull
         @Override
-        public ModelsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ModelsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
             return new ModelsHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(ModelsHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ModelsHolder holder, int position) {
             holder.bind(mModels.get(position));
         }
 
@@ -175,6 +180,9 @@ public class ModelsListDialog extends DialogFragment {
         private TextView mIdTextView;
         private TextView mNameTextView;
         private TextView mDescriptionTextView;
+        private TextView mPieces;
+        private TextView mFinishedPieces;
+
 
         ModelsHolder (LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_models, parent, false));
@@ -182,6 +190,8 @@ public class ModelsListDialog extends DialogFragment {
             mIdTextView = itemView.findViewById(R.id.model_list_item_id);
             mNameTextView = itemView.findViewById(R.id.model_list_item_name);
             mDescriptionTextView = itemView.findViewById(R.id.model_list_item_description);
+            mPieces = itemView.findViewById(R.id.model_list_item_pieces);
+            mFinishedPieces = itemView.findViewById(R.id.model_list_item_finished_pieces);
             itemView.setOnClickListener(this);
         }
 
@@ -190,6 +200,8 @@ public class ModelsListDialog extends DialogFragment {
             mIdTextView.setText(model.getId());
             mNameTextView.setText(model.getName());
             mDescriptionTextView.setText(model.getDescription());
+            mPieces.setText(model.getPieces());
+            mFinishedPieces.setText(model.getFinishedPieces());
         }
 
         @Override
@@ -202,7 +214,7 @@ public class ModelsListDialog extends DialogFragment {
             intent.putExtra(EXTRA_MODEL_ID, modelId);
 
             if (getTargetFragment() == null) {
-                getActivity().setResult(Activity.RESULT_OK, intent);
+                Objects.requireNonNull(getActivity()).setResult(Activity.RESULT_OK, intent);
                 getActivity().finish();
             } else {
                 dismiss();
