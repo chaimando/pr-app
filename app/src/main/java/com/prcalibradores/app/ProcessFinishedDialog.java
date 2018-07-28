@@ -1,15 +1,13 @@
 package com.prcalibradores.app;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +34,7 @@ public class ProcessFinishedDialog extends DialogFragment {
     private static final String STATE_NEXT_PROCESS_TEXT_VIEW = "state_next_process_text_view";
     private static final String STATE_FINISHED_PIECES_TEXT_VIEW = "state_finished_pieces_text_view";
     private static final String STATE_PIECES_TEXT_VIEW = "state_pieces_text_view";
+    private static final String STATE_YES_BUTTON = "state_yes_button";
 
     private LinearLayout mLayoutFinished;
     private LinearLayout mLayoutProgress;
@@ -43,14 +42,17 @@ public class ProcessFinishedDialog extends DialogFragment {
     private TextView mNextProcess;
     private TextView mPieces;
     private TextView mFinishedPieces;
+    private Button mYesButton;
+    private Button mNoButton;
 
     private String mNextProcessText;
-    private String mPiecesNumber;
-    private String mFinishedPiecesNumber;
+    private String mPiecesText;
+    private String mFinishedPiecesText;
 
     private String mPieceId;
     private JSONObject mJSONObject;
     private int mDeaths;
+    private int mYesButtonVisibility;
 
     public static ProcessFinishedDialog newInstance(String mPieceId, JSONObject json, int deaths) {
         Bundle args = new Bundle();
@@ -62,14 +64,40 @@ public class ProcessFinishedDialog extends DialogFragment {
         return fragment;
     }
 
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            mNextProcessText = savedInstanceState.getString(STATE_NEXT_PROCESS_TEXT_VIEW);
-            mPiecesNumber = savedInstanceState.getString(STATE_PIECES_TEXT_VIEW);
-            mFinishedPiecesNumber = savedInstanceState.getString(STATE_FINISHED_PIECES_TEXT_VIEW);
-        }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_finished_process, null);
+        mLayoutFinished     = view.findViewById(R.id.dialog_finished_process_layout);
+        mLayoutProgress     = view.findViewById(R.id.dialog_finished_process_progress_layout);
+        mLayoutAnotherPiece = view.findViewById(R.id.dialog_finished_layout_another_piece);
+
+        mYesButton  = view.findViewById(R.id.dialog_finished_button_yes);
+        mYesButton.setVisibility(mYesButtonVisibility);
+        if (mYesButtonVisibility == View.GONE)
+            mLayoutAnotherPiece.setVisibility(View.GONE);
+        mNoButton   = view.findViewById(R.id.dialog_finished_button_no);
+
+        mYesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendResult(true);
+            }
+        });
+        mNoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendResult(false);
+            }
+        });
+
+        mNextProcess    = view.findViewById(R.id.dialog_next_process);
+        mNextProcess.setText(mNextProcessText);
+        mPieces         = view.findViewById(R.id.dialog_pieces);
+        mPieces.setText(mPiecesText);
+        mFinishedPieces = view.findViewById(R.id.dialog_finished_pieces);
+        mFinishedPieces.setText(mFinishedPiecesText);
+
         if (getArguments() != null) {
             mPieceId = getArguments().getString(ARG_PIECE_ID);
             try {
@@ -79,9 +107,64 @@ public class ProcessFinishedDialog extends DialogFragment {
             }
             mDeaths = getArguments().getInt(ARG_DEATHS);
         }
+
+        if (savedInstanceState == null) {
+            mLayoutFinished.setVisibility(View.INVISIBLE);
+            mLayoutProgress.setVisibility(View.VISIBLE);
+            new RestClient().setTime(mPieceId, mJSONObject, mDeaths, new RestClient.Callback() {
+                @Override
+                public void onSuccess(JSONArray result) {
+
+                }
+
+                @Override
+                public void onSuccess(JSONObject result) throws JSONException {
+                    mLayoutFinished.setVisibility(View.VISIBLE);
+                    mLayoutProgress.setVisibility(View.INVISIBLE);
+                    int pieces = Integer.parseInt(
+                            result.getString("model_pieces")
+                    );
+                    int finishedPieces = Integer.parseInt(
+                            result.getString("model_finished_pieces")
+                    );
+                    String piecesString = getString(R.string.dialog_finished_pieces, pieces);
+                    String finishedPiecesString = getString(R.string.dialog_finished_finished_pieces,
+                            finishedPieces);
+                    mPieces.setText(piecesString);
+                    mFinishedPieces.setText(finishedPiecesString);
+                    Log.d(TAG, "onSuccess: " + finishedPieces);
+                    Log.d(TAG, "onSuccess: " + pieces);
+                    if (pieces >= finishedPieces) {
+                        String nextProcess = getString(R.string.dialog_next_process_text,
+                                result.getString("process_name"));
+                        mNextProcess.setText(nextProcess);
+                    } else {
+                        mYesButton.setVisibility(View.GONE);
+                        mLayoutAnotherPiece.setVisibility(View.GONE);
+                    }
+                    Log.d(TAG, "onSuccess: Registrado");
+                }
+
+                @Override
+                public void onFailure(String response) { }
+            });
+        }
+
+        return view;
     }
 
-    @NonNull
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mNextProcessText = savedInstanceState.getString(STATE_NEXT_PROCESS_TEXT_VIEW);
+            mPiecesText = savedInstanceState.getString(STATE_PIECES_TEXT_VIEW);
+            mFinishedPiecesText = savedInstanceState.getString(STATE_FINISHED_PIECES_TEXT_VIEW);
+            mYesButtonVisibility = savedInstanceState.getInt(STATE_YES_BUTTON);
+        }
+    }
+
+    /*@NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         @SuppressLint("InflateParams")
@@ -96,8 +179,8 @@ public class ProcessFinishedDialog extends DialogFragment {
         mFinishedPieces = view.findViewById(R.id.dialog_finished_pieces);
 
         mNextProcess.setText(mNextProcessText);
-        mPieces.setText(mPiecesNumber);
-        mFinishedPieces.setText(mFinishedPiecesNumber);
+        mPieces.setText(mPiecesText);
+        mFinishedPieces.setText(mFinishedPiecesText);
 
         if (savedInstanceState == null) {
             mLayoutFinished.setVisibility(View.INVISIBLE);
@@ -150,7 +233,7 @@ public class ProcessFinishedDialog extends DialogFragment {
                     }
                 })
                 .create();
-    }
+    }*/
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -158,6 +241,7 @@ public class ProcessFinishedDialog extends DialogFragment {
         outState.putString(STATE_NEXT_PROCESS_TEXT_VIEW, mNextProcess.getText().toString());
         outState.putString(STATE_PIECES_TEXT_VIEW, mPieces.getText().toString());
         outState.putString(STATE_FINISHED_PIECES_TEXT_VIEW, mFinishedPieces.getText().toString());
+        outState.putInt(STATE_YES_BUTTON, mYesButton.getVisibility());
     }
 
     private void sendResult(boolean anotherPiece) {

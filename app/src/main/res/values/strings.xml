@@ -39,9 +39,11 @@
     <string name="dialog_finished_text_registro_exitoso">Registro exitoso</string>
     <string name="dialog_finished_pieces">Piezas por hacer: %1$d</string>
     <string name="dialog_finished_finished_pieces">Piezas finalizadas: %1$d</string>
-    <string name="dialog_finished_negative_button">Salir</string>
+    <string name="dialog_finished_button_no">Salir</string>
+    <string name="dialog_finished_button_yes">Si</string>
+    <string name="list_item_project_name_dummy">PR-17-66-037-461</string>
 
-    <string name="exception_scanner">Scanner error: %1$s</string>
+    <string name="exception_scanner">Error en el escaner: %1$s</string>
     <string name="exception_scanner_detector">Sorry, couldn\'t setup that detector</string>
 
 

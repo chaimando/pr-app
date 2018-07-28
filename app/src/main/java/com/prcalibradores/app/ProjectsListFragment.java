@@ -161,7 +161,7 @@ public class ProjectsListFragment extends Fragment {
         private String DATE_PATTERN = "E MMM d, y";
 
         private TextView mIdTextView;
-        private TextView mNameTextView;
+        //private TextView mNameTextView;
         private TextView mStartDateTextView;
         private TextView mDeadLineTextView;
         private TextView mStatusTextView;
@@ -172,7 +172,7 @@ public class ProjectsListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_project, parent, false));
 
             mIdTextView = itemView.findViewById(R.id.project_list_item_id);
-            mNameTextView = itemView.findViewById(R.id.project_list_item_name);
+            //mNameTextView = itemView.findViewById(R.id.project_list_item_name);
             mStartDateTextView = itemView.findViewById(R.id.project_list_item_start_date);
             mDeadLineTextView = itemView.findViewById(R.id.project_list_item_dead_line);
             mStatusTextView = itemView.findViewById(R.id.project_list_item_status);
@@ -183,7 +183,7 @@ public class ProjectsListFragment extends Fragment {
         void bind(Project project) {
             mProject = project;
             mIdTextView.setText(project.getId());
-            mNameTextView.setText(project.getName());
+            //mNameTextView.setText(project.getName());
             mStartDateTextView.setText(DateFormat.format(DATE_PATTERN, project.getStartdate()));
             mDeadLineTextView.setText(DateFormat.format(DATE_PATTERN, project.getDeadline()));
             mStatusTextView.setText(project.getStatus());

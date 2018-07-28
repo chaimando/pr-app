@@ -6,6 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/dialog_finished_text_registro_exitoso"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_finished_process_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/dialog_finished_process_progress_layout"
         android:layout_width="wrap_content"
@@ -36,48 +50,73 @@
         android:id="@+id/dialog_finished_process_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dialog_finished_text_registro_exitoso" />
-        <TextView
             android:id="@+id/dialog_pieces"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dialog_finished_pieces"
-            tools:text="Piezas por hacer: 10"/>
+            tools:text="Piezas por hacer: 10" />
+
         <TextView
             android:id="@+id/dialog_finished_pieces"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dialog_finished_finished_pieces"
-            tools:text="Piezas finalizadas: 5"/>
+            tools:text="Piezas finalizadas: 5" />
+
         <LinearLayout
             android:id="@+id/dialog_finished_layout_another_piece"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/dialog_next_process"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_next_process_text"/>
+                android:text="@string/dialog_next_process_text" />
+
             <TextView
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_new_piece"/>
+                android:text="@string/dialog_new_piece" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_finished_layout_another_piece_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/dialog_finished_button_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_finished_button_no" />
+
+            <Button
+                android:id="@+id/dialog_finished_button_yes"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_finished_button_yes" />
         </LinearLayout>
     </LinearLayout>
 
