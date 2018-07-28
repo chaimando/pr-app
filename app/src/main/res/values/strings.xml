@@ -41,12 +41,8 @@
     <string name="dialog_finished_finished_pieces">Piezas finalizadas: %1$d</string>
     <string name="dialog_finished_negative_button">Salir</string>
 
-    <!-- Process -->
-    <string name="process_progress_layout_text">Registrando nueva pieza</string>
-    <string name="process_dialog_finished_title">Proceso terminado</string>
-    <string name="process_dialog_finished_progress_text">Registrando tiempo de proceso</string>
-    <string name="dialog_next_process_text">Siguiente proceso: %1$s</string>
-    <string name="dialog_new_piece">¿Desea hacer otra pieza?</string>
-    <string name="dialog_finished_text_registro_exitoso">Registro exitoso</string>
+    <string name="exception_scanner">Scanner error: %1$s</string>
+    <string name="exception_scanner_detector">Sorry, couldn\'t setup that detector</string>
+
 
 </resources>

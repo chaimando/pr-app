@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prcalibradores.app">
 
+    <uses-permission android:name="com.prcalibradores.app" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.prcalibradores.app.SplashActivity"
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,20 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.prcalibradores.app.LoginActivity"></activity>
-        <activity android:name="com.prcalibradores.app.MainActivity">
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.prcalibradores.app.ProjectsListActivity" />
-        <activity android:name="com.prcalibradores.app.ModelActivity" />
+        <activity android:name=".ProjectsListActivity" />
+        <activity android:name=".ModelActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="com.prcalibradores.app.ProcessActivity"></activity>
+        <activity android:name=".ProcessActivity" />
+        <activity android:name=".SearchPieceActivity" />
+        <activity android:name=".ScanActivity"></activity>
     </application>
 
 </manifest>
