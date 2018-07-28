@@ -12,6 +12,11 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
+    <style name="ListItemTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="fontFamily">@font/play</item>
+    </style>
+
     <style name="ListItem" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textColor">@color/primary_text</item>
         <item name="fontFamily">@font/play</item>

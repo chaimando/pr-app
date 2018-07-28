@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -50,14 +52,33 @@
             android:layout_height="wrap_content"
             android:text="@string/dialog_finished_text_registro_exitoso" />
         <TextView
-            android:id="@+id/dialog_next_process"
+            android:id="@+id/dialog_pieces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dialog_next_process_text"/>
+            android:text="@string/dialog_finished_pieces"
+            tools:text="Piezas por hacer: 10"/>
         <TextView
+            android:id="@+id/dialog_finished_pieces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dialog_new_piece"/>
+            android:text="@string/dialog_finished_finished_pieces"
+            tools:text="Piezas finalizadas: 5"/>
+        <LinearLayout
+            android:id="@+id/dialog_finished_layout_another_piece"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dialog_next_process"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_next_process_text"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_new_piece"/>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calibradores</string>
+    <string name="app_name">PR Calibradores</string>
 
     <!-- Login -->
     <string name="hint_username">Nombre de usuario</string>
@@ -27,6 +27,8 @@
     <string name="models_label_id_name">Nombre:</string>
     <string name="models_label_id_description">Descripción:</string>
     <string name="models_dialog_title">Elige una pieza</string>
+    <string name="models_label_pieces">Piezas por hacer:</string>
+    <string name="models_label_finished_pieces">Piezas finalizadas:</string>
 
     <!-- Process -->
     <string name="process_progress_layout_text">Registrando nueva pieza</string>
@@ -35,5 +37,8 @@
     <string name="dialog_next_process_text">Siguiente proceso: %1$s</string>
     <string name="dialog_new_piece">¿Desea hacer otra pieza?</string>
     <string name="dialog_finished_text_registro_exitoso">Registro exitoso</string>
+    <string name="dialog_finished_pieces">Piezas por hacer: %1$d</string>
+    <string name="dialog_finished_finished_pieces">Piezas finalizadas: %1$d</string>
+    <string name="dialog_finished_negative_button">Salir</string>
 
 </resources>

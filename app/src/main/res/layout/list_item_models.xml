@@ -8,8 +8,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        app:contentPadding="18dp"
+        android:layout_margin="8dp"
+        app:contentPadding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +82,48 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     tools:text="Esto es una descripción" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    style="@style/ListItemLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/models_label_pieces" />
+
+                <TextView
+                    style="@style/ListItem"
+                    android:id="@+id/model_list_item_pieces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="150" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView
+                    style="@style/ListItemLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/models_label_finished_pieces" />
+
+                <TextView
+                    style="@style/ListItem"
+                    android:id="@+id/model_list_item_finished_pieces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="43" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
