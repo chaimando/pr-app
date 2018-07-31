@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProcessActivity"
+    tools:context=".view.ProcessActivity"
     android:id="@+id/process_container">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

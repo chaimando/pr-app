@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.prcalibradores.app.R;
 import com.prcalibradores.app.networking.RestClient;
 
 import org.json.JSONArray;

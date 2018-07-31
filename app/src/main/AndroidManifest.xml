@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.SplashActivity"
             android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,22 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProjectsListActivity" />
-        <activity android:name=".ModelActivity" />
+        <activity android:name=".view.ProjectsListActivity" />
+        <activity android:name=".view.ModelActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ProcessActivity" />
-        <activity android:name=".SearchPieceActivity" />
-        <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".view.ProcessActivity" />
+        <activity android:name=".view.SearchPieceActivity" />
+        <activity android:name=".view.ScanActivity"></activity>
     </application>
 
 </manifest>

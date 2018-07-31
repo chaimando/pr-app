@@ -1,10 +1,11 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.loopj.android.http.PersistentCookieStore;
+import com.prcalibradores.app.R;
 import com.prcalibradores.app.model.UsersLab;
 import com.prcalibradores.app.networking.RestClient;
 

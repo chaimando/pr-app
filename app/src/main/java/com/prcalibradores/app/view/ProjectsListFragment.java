@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.prcalibradores.app.R;
 import com.prcalibradores.app.model.Project;
 import com.prcalibradores.app.networking.RestClient;
 import com.prcalibradores.app.networking.Utils;

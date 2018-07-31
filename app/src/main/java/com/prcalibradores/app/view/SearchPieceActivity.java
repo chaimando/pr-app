@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.prcalibradores.app.R;
+import com.prcalibradores.app.networking.RestClient;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -41,7 +43,8 @@ public class SearchPieceActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progressBar2);
         mPDFView = findViewById(R.id.pdf);
         //mPDFView.fromAsset("CCA-Certificate-Java Level 1.pdf").load();
-        new RetrievePDFStream().execute("http://server-die.alc.upv.es/asignaturas/PAEEES/2006-07/Tarjetas%20SD.pdf");
+        //"http://server-die.alc.upv.es/asignaturas/PAEEES/2006-07/Tarjetas%20SD.pdf"
+        new RetrievePDFStream().execute(RestClient.BASE_URL + "pdf.php?id=" + modelId);
     }
 
     @SuppressLint("StaticFieldLeak")

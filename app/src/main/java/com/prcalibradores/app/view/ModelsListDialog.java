@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.loopj.android.http.PersistentCookieStore;
+import com.prcalibradores.app.R;
 import com.prcalibradores.app.model.Model;
 import com.prcalibradores.app.model.User;
 import com.prcalibradores.app.model.UsersLab;

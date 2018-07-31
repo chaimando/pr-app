@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.os.Bundle;
 

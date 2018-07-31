@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.loopj.android.http.PersistentCookieStore;
+import com.prcalibradores.app.R;
 import com.prcalibradores.app.model.User;
 import com.prcalibradores.app.model.UsersLab;
 import com.prcalibradores.app.networking.RestClient;

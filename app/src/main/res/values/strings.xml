@@ -44,7 +44,7 @@
     <string name="list_item_project_name_dummy">PR-17-66-037-461</string>
 
     <string name="exception_scanner">Error en el escaner: %1$s</string>
-    <string name="exception_scanner_detector">Sorry, couldn\'t setup that detector</string>
+    <string name="exception_scanner_detector">Sorry, couldn\'t setup that detector</string>fi
 
 
 </resources>

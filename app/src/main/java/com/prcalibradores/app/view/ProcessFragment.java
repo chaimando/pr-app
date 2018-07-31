@@ -1,4 +1,4 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.PersistentCookieStore;
+import com.prcalibradores.app.R;
 import com.prcalibradores.app.model.User;
 import com.prcalibradores.app.model.UsersLab;
 import com.prcalibradores.app.networking.RestClient;

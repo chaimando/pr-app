@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 public class RestClient {
-    private static final String BASE_URL = "http://www.prcalibradores.com/api/";
+    public static final String BASE_URL = "http://www.prcalibradores.com/api/";
     private static final String TAG = "RestClient";
 
     public AsyncHttpClient getClient() {

@@ -1,7 +1,9 @@
-package com.prcalibradores.app;
+package com.prcalibradores.app.view;
 
 import android.content.Context;
 import android.content.Intent;
+
+import com.prcalibradores.app.R;
 
 import androidx.fragment.app.Fragment;
 
