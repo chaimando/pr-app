@@ -27,4 +27,10 @@
         <item name="fontFamily">@font/play</item>
     </style>
 
+
+    <style name="PrimaryColoredButton" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/mypeach</item>
+        <item name="colorControlHighlight">@color/myred</item>
+    </style>
+
 </resources>

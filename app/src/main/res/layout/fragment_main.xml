@@ -38,6 +38,7 @@
                     android:layout_margin="16dp"
                     app:fabCustomSize="@dimen/floating_action_button_main"
                     app:maxImageSize="48dp"
+                    app:rippleColor="@color/colorPrimary"
                     app:srcCompat="@drawable/ic_new_process" />
 
                 <TextView
@@ -56,6 +57,7 @@
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/button_scan_model"
+                    app:rippleColor="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"

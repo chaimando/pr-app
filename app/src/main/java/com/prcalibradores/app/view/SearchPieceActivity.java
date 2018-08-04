@@ -2,6 +2,7 @@ package com.prcalibradores.app.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.prcalibradores.app.R;
 import com.prcalibradores.app.networking.RestClient;
 
@@ -18,9 +20,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SearchPieceActivity extends AppCompatActivity {
+public class SearchPieceActivity extends AppCompatActivity implements OnErrorListener {
 
     private static final String EXTRA_MODEL_ID = "model_id";
 
@@ -47,6 +50,21 @@ public class SearchPieceActivity extends AppCompatActivity {
         new RetrievePDFStream().execute(RestClient.BASE_URL + "pdf.php?id=" + modelId);
     }
 
+    @Override
+    public void onError(Throwable t) {
+        AlertDialog alertDialog = new AlertDialog.Builder(SearchPieceActivity.this).create();
+        alertDialog.setTitle("PDF inexistente");
+        alertDialog.setMessage("No se encontró ningún PDF con ese código QR.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.show();
+    }
+
     @SuppressLint("StaticFieldLeak")
     class RetrievePDFStream extends AsyncTask <String, Void, InputStream> {
 
@@ -67,12 +85,11 @@ public class SearchPieceActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
         }
-
         @Override
         protected void onPostExecute(InputStream inputStream) {
-            mPDFView.fromStream(inputStream).load();
+            mPDFView.fromStream(inputStream).onError(SearchPieceActivity.this)
+                    .load();
             mProgressBar.setVisibility(View.GONE);
         }
     }
